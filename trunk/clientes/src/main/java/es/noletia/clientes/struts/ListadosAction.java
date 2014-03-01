@@ -94,7 +94,7 @@ public class ListadosAction extends ComunAction {
 		for (String cat : arr1) {
 			String[] arr2 = cat.split(":");
 			if ("true".equals(arr2[1])) {
-				resultado += "," + arr2[0].substring(arr2[0].length() - 1);
+				resultado += "," + arr2[0].substring(arr2[0].indexOf('-')+1);
 			}
 		}
 		return !"".equals(resultado) ? resultado.substring(1) : null;

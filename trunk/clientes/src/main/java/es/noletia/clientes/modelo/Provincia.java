@@ -3,12 +3,16 @@
  */
 package es.noletia.clientes.modelo;
 
+import java.io.Serializable;
+
+
 /**
  * @author ramon
  *
  */
-public class Provincia {
+public class Provincia implements Serializable{
 
+	private static final long serialVersionUID = -6915676569677672600L;
 	private Long idprovincia;
 	private String nombre;
 

@@ -86,6 +86,14 @@
 				<s:textfield theme="simple" name="contactob" id="contactob"></s:textfield>
 			</div>
 			<div style="clear:both"><br></div>
+			<div>
+				<label for="nombrecategoria">Por categoría</label>
+				<br>
+				<s:iterator value="listacategorias" var="cat">
+					<s:checkbox name="nombrecategoria" id="b_cat-%{idcategoria}" value="%{seleccionado}"></s:checkbox>${cat.nombrecategoria}<br>
+				</s:iterator>
+			</div>
+			<div style="clear:both"><br></div>
 		</div>
 		<br>
 		<input type="button" id="cancelar" value="Cancelar" onclick="cancelarEdicion();" style="display:none">

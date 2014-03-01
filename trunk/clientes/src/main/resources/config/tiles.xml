@@ -34,4 +34,8 @@
 		<put-attribute name="body" value="/jsp/listados/listados.jsp" />
     </definition>
     
+    <definition name="seguridad.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/seguridad/seguridad.jsp" />
+    </definition>
+    
 </tiles-definitions>

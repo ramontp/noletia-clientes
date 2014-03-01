@@ -47,6 +47,11 @@
 	    <action name="*Listados" class="listadosAction" method="{1}Listados">
 	        <result name="success" type="tiles">listados.tiles</result>
 	    </action>
+	    
+	    <action name="*Seguridad" class="copiaSeguridadAction" method="{1}Seguridad">
+	        <result name="success" type="tiles">seguridad.tiles</result>
+	    </action>
+	    	    
 	</package>
 	
 </struts>

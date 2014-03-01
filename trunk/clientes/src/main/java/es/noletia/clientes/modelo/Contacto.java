@@ -3,12 +3,15 @@
  */
 package es.noletia.clientes.modelo;
 
+import java.io.Serializable;
+
 /**
  * @author ramon
  *
  */
-public class Contacto {
+public class Contacto implements Serializable{
 
+	private static final long serialVersionUID = 1644376208445705738L;
 	private Long idcontacto;
 	private String contacto;
 	private String departamento;
