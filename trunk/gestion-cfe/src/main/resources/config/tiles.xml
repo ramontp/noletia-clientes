@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    
+    <definition name="esqueleto" template="/jsp/comun/esqueleto.jsp">
+		<put-attribute name="title" value="Noletia PAY AFTER SHOW" />
+		<put-attribute name="header" value="/jsp/comun/cabecera.jsp" />
+		<put-attribute name="nav" value="/jsp/comun/navigation.jsp" />
+		<put-attribute name="footer" value="/jsp/comun/pie.jsp" />
+	</definition>
+    
+    <definition name="consultas.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/inicio/contenidoInicio.jsp" />
+    </definition>
+    
+    <definition name="companias.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/buscadores/companias.jsp" />
+    </definition>
+    
+    <definition name="funciones.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/buscadores/funciones.jsp" />
+    </definition>
+    
+    <definition name="espacios.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/buscadores/espacios.jsp" />
+    </definition>
+    
+    <definition name="login.tiles" extends="esqueleto">
+		<put-attribute name="nav" value="/jsp/comun/navigation.jsp" />
+		<put-attribute name="body" value="/jsp/login/login.jsp" />
+	</definition>
+	
+    <definition name="error.tiles" extends="esqueleto">
+        <put-attribute name="body" value="/jsp/comun/error.jsp" />
+    </definition>
+	
+    <definition name="admin.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/privado/admin.jsp" />
+	</definition>
+	
+    <definition name="adminCmp.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/privado/companias.jsp" />
+	</definition>
+	
+    <definition name="adminPrv.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/privado/provincias.jsp" />
+	</definition>
+	
+    <definition name="adminGen.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/privado/generos.jsp" />
+	</definition>
+	
+    <definition name="adminEsp.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/privado/espacios.jsp" />
+	</definition>
+	
+    <definition name="adminCmp.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/privado/companias.jsp" />
+	</definition>
+	
+    <definition name="adminFun.tiles" extends="esqueleto">
+		<put-attribute name="body" value="/jsp/privado/funciones.jsp" />
+	</definition>
+	
+    <definition name="adminTemplate" template="/jsp/privado/baseContenido.jsp">
+		<put-attribute name="apartados" value="/jsp/privado/admin.jsp" />
+		<put-attribute name="contenido" value="/jsp/privado/contenido.jsp" />
+	</definition>
+    
+</tiles-definitions>

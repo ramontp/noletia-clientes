@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.TipoAcuerdoDAO">
+    <resultMap id="result" type="tipoacuerdo">
+        <id property="idtipoacuerdo" column="idtipoacuerdo"/>
+        <result property="tipoacuerdo" column="tipoacuerdo"/>
+    </resultMap>
+    
+    <insert id="alta" parameterType="tipoacuerdo">
+
+    </insert>
+    
+    <delete id="borra" parameterType="tipoacuerdo">
+        
+    </delete>
+    
+    <delete id="borraPorId" parameterType="java.lang.Long">
+        
+    </delete>
+    
+    <select id="getElemento" parameterType="tipoacuerdo" resultType="tipoacuerdo">
+        select * from tipoacuerdo where idtipoacuerdo=#{idtipoacuerdo}
+    </select>
+    
+    <select id="getElementoPorId" parameterType="java.lang.Long" resultType="tipoacuerdo">
+        select * from tipoacuerdo where idtipoacuerdo=#{id}
+    </select>
+    
+    <select id="getListaElementos" resultType="tipoacuerdo">
+        select * from tipoacuerdo
+    </select>
+    
+    <update id="actualiza" parameterType="tipoacuerdo">
+
+    </update>
+    
+    <select id="getElementosFiltrados" resultType="tipoacuerdo" parameterType="java.util.Map">
+        select * from tipoacuerdo where tipoacuerdo like '%${tipoacuerdo}%'
+    </select>
+    
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.TipoPasDAO">
+    
+    <insert id="alta" parameterType="tipoacuerdo">
+        
+    </insert>
+    
+    <delete id="borra" parameterType="tipoacuerdo">
+        
+    </delete>
+    
+    <delete id="borraPorId" parameterType="java.lang.Long">
+        
+    </delete>
+    
+    <select id="getElemento" parameterType="tipopas" resultType="tipopas">
+        select * from tipopas where idtipopas=#{idtipopas}
+    </select>
+    
+    <select id="getElementoPorId" parameterType="java.lang.Long" resultType="tipopas">
+        select * from tipopas where idtipopas=#{id}
+    </select>
+    
+    <select id="getListaElementos" resultType="tipopas">
+        select * from tipopas
+    </select>
+    
+    <update id="actualiza" parameterType="tipopas">
+        
+    </update>
+    
+    <select id="getElementosFiltrados" resultType="tipoacuerdo" parameterType="java.util.Map">
+        select * from tipopas where nombretipo like '%${nombretipo}%'
+    </select>
+    
+</mapper>

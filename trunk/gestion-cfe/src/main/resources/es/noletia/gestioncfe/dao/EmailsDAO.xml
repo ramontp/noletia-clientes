@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.EmailsDAO">
+    <resultMap id="result" type="email">
+        <id property="idemail" column="idemail"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    
+    <insert id="alta" parameterType="email">
+        <!-- TODO: incluir valor de PAS -->
+        insert into emails(email,idpas,idespacio) values (#{email}, null, #{espacio.idespacio})
+    </insert>
+    
+    <delete id="borra" parameterType="email">
+        delete from emails where idemail=#{idemail}
+    </delete>
+    
+    <delete id="borraPorId" parameterType="java.lang.Long">
+        delete from emails where idemail=#{id}
+    </delete>
+    
+    <select id="getElemento" parameterType="email" resultType="email">
+        select * from emails where idemail=#{idemail}
+    </select>
+    
+    <select id="getElementoPorId" parameterType="java.lang.Long" resultType="email">
+        select * from emails where idemail=#{id}
+    </select>
+    
+    <select id="getListaElementos" resultType="email">
+        select * from emails
+    </select>
+    
+    <update id="actualiza" parameterType="email">
+        update emails
+        <set>
+            email = #{email}
+        </set>
+        where idemail = #{idemail}
+    </update>
+    
+    <select id="getElementosFiltrados" resultType="email" parameterType="java.util.Map">
+        select * from emails where email like '%${email}%'
+    </select>
+    
+</mapper>

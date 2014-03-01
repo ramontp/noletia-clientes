@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.GenerosDAO">
+    
+    <cache/>
+    
+    <insert id="alta" parameterType="genero" useGeneratedKeys="true" keyProperty="idgenero">
+        insert into generos(nombregenero) values (#{nombreGenero})
+    </insert>
+    
+    <delete id="borra" parameterType="genero">
+        delete from generos where idgenero=#{idgenero}
+    </delete>
+    
+    <delete id="borraPorId" parameterType="java.lang.Long">
+        delete from generos where idgenero=#{id}
+    </delete>
+    
+    <select id="getElemento" parameterType="genero" resultType="genero">
+        select * from generos where idgenero=#{idgenero}
+    </select>
+    
+    <select id="getListaElementos" resultType="genero">
+        select * from generos
+    </select>
+    
+    <update id="actualiza" parameterType="genero">
+        update generos
+        <set>
+            nombregenero = #{nombreGenero}
+        </set>
+        where idgenero = #{idgenero}
+    </update>
+    
+    <select id="getElementosFiltrados" resultType="genero" parameterType="java.util.Map">
+        select * from generos where nombregenero like '%${nombre}%'
+    </select>
+</mapper>
