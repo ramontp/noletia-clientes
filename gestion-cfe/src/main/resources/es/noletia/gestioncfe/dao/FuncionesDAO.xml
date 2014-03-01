@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.FuncionesDAO">
+    
+    <resultMap id="result" type="funcion">
+        <id property="idfuncion" column="idfuncion"/>
+        <result property="fecha" column="fecha"/>
+        <result property="recaudacion" column="recaudacion"/>
+        <result property="observaciones" column="observaciones"/>
+        <association property="espacio" column="espacio" javaType="espacio">
+	        <id property="idEspacio" column="idespacio"/>
+	        <result property="espacio" column="espacio"/>
+        </association>
+        <association property="compania" column="compania" javaType="pas">
+	        <id property="idcompania" column="idcompania"/>
+	        <result property="nombre" column="nombre"/>
+        </association>
+    </resultMap>
+     <!--
+    
+    <insert id="alta" parameterType="funcion">
+        insert into funciones(idcompania,idespacio,fecha,recaudacion,observaciones) 
+        values (#{compania.idcompania},#{espacio.idEspacio},#{fecha},#{recaudacion},#{observaciones})
+    </insert>
+    
+    <delete id="borra" parameterType="funcion">
+        delete from funciones where idfuncion=#{idfuncion}
+    </delete>
+    
+    <select id="getElemento" parameterType="funcion" resultMap="result">
+		select fun.idfuncion, fun.idcompania, fun.idespacio, fun.recaudacion,
+				fun.fecha, fun.observaciones,
+		        esp.idespacio, esp.espacio, com.idcompania, com.nombre
+		from funciones fun 
+		left join espacios esp on fun.idespacio = esp.idespacio
+		left join companias com on fun.idcompania = com.idcompania
+        where idfuncion=#{idfuncion}
+    </select>
+    
+    <select id="getListaElementos" resultMap="result">
+		select fun.idfuncion, fun.idcompania, fun.idespacio, fun.recaudacion,
+				fun.fecha, fun.observaciones,
+		        esp.idespacio, esp.espacio, com.idcompania, com.nombre
+		from funciones fun 
+		left join espacios esp on fun.idespacio = esp.idespacio
+		left join companias com on fun.idcompania = com.idcompania
+    </select>
+        
+    <update id="actualiza" parameterType="compania">
+        update funciones
+        <set>
+            nombre=#{nombre},
+            genero=#{genero.idgenero},
+            contacto=#{contacto},
+            telefonos=#{telefonos},
+            emails=#{emails},
+            provincia=#{provincia.idprovincia},
+            compromisoECE=#{compromisoECE},
+            nFuncionesAdeudadas=#{nFuncionesAdeudadas},
+            observaciones=#{observaciones}
+        </set>
+        where idcompania = #{idcompania}
+    </update>
+     -->
+    <select id="getElementosFiltrados" resultMap="result" parameterType="java.util.Map">
+		select fun.idfuncion, fun.idcompania, fun.idespacio, fun.recaudacion,
+				fun.fecha, fun.observaciones,
+		        esp.idespacio, esp.espacio, com.idcompania, com.nombre
+		from funciones fun 
+		left join espacios esp on fun.idespacio = esp.idespacio
+		left join companias com on fun.idcompania = com.idcompania
+        <where>
+            <if test="nombre != null and nombre != ''">nombre like '%${nombre}%' </if>
+            <if test="contacto != null and contacto != ''">AND contacto like '%${contacto}%' </if>
+            <if test="telefonos != null and telefonos != ''">AND telefonos like '%${telefonos}%' </if>
+            <if test="emails != null and emails != ''">AND emails like '%${emails}%' </if>
+            <if test="idprovincia != null and idprovincia != ''">AND com.provincia=#{idprovincia}</if>
+            <if test="idgenero != null and idgenero != ''">AND com.genero=#{idgenero}</if>
+            <if test="compromisoECE != null and compromisoECE != ''">AND compromisoECE=#{compromisoECE}</if>
+            <if test="nFuncionesAdeudadas != null and nFuncionesAdeudadas != ''">AND nFuncionesAdeudadas=#{nFuncionesAdeudadas}</if>
+            <if test="observaciones != null and observaciones != ''">AND observaciones like '%${observaciones}%' </if>
+        </where>
+    </select>
+</mapper>

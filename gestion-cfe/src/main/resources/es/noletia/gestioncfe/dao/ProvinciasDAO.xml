@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.ProvinciasDAO">
+    
+    <cache/>
+    
+    <insert id="alta" parameterType="provincia">
+        insert into provincias(nombreProvincia) values (#{nombreProvincia})
+    </insert>
+    
+    <delete id="borra" parameterType="provincia">
+        delete from provincias where idprovincia=#{idprovincia}
+    </delete>
+    
+    <delete id="borraPorId" parameterType="java.lang.Long">
+        delete from provincias where idprovincia=#{id}
+    </delete>
+    
+    <select id="getElemento" parameterType="provincia" resultType="provincia">
+        select * from provincias where idprovincia=#{idprovincia}
+    </select>
+    
+    <select id="getElementoPorId" parameterType="java.lang.Long" resultType="provincia">
+        select * from provincias where idprovincia=#{id}
+    </select>
+    
+    <select id="getListaElementos" resultType="provincia">
+        select * from provincias
+    </select>
+    
+    <update id="actualiza" parameterType="provincia">
+        update provincias
+        <set>
+            nombreProvincia = #{nombreProvincia}
+        </set>
+        where idprovincia = #{idprovincia}
+    </update>
+    
+    <select id="getElementosFiltrados" resultType="provincia" parameterType="java.util.Map">
+        select * from provincias where nombreprovincia like '%${nombre}%'
+    </select>
+    
+</mapper>

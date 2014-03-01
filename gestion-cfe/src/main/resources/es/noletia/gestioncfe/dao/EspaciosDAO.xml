@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.EspaciosDAO">
+    
+    <cache/>
+    
+    <resultMap id="result" type="espacio">
+        <id property="idespacio" column="idespacio"/>
+        <result property="espacio" column="espacio"/>
+        <result property="contacto" column="contacto"/>
+        <result property="telefonos" column="telefonos"/>
+        <association property="provincia" column="idprovincia" javaType="provincia">
+	        <id property="idprovincia" column="idprovincia"/>
+	        <result property="nombreProvincia" column="nombreProvincia"/>
+        </association>
+        <collection property="listaemails" ofType="email">
+            <id property="idemail" column="idemail"/>
+            <result property="email" column="email"/>
+        </collection>
+    </resultMap>
+        
+    <insert id="alta" parameterType="espacio" useGeneratedKeys="true" keyProperty="idespacio">
+        insert into espacios(espacio,contacto,telefonos,idprovincia,idtipoacuerdo,descripcionacuerdo) 
+        values (#{espacio},#{contacto},#{telefonos},#{provincia.idprovincia},#{tipoacuerdo.idtipoacuerdo},#{descripcionacuerdo})
+    </insert>
+    
+    <delete id="borra" parameterType="espacio">
+        delete from espacios where idespacio=#{idespacio}
+    </delete>
+    
+    <delete id="borraPorId" parameterType="java.lang.Long">
+        delete from espacios where idespacio=#{id}
+    </delete>
+    
+    <select id="getElemento" parameterType="espacio" resultMap="result">
+        select esp.idespacio, esp.espacio, esp.contacto, esp.telefonos, esp.idprovincia,
+        	   pro.idprovincia, pro.nombreProvincia
+        from espacios esp left join provincias pro 
+        on esp.idprovincia = pro.idprovincia
+        where esp.idespacio=#{idespacio}
+    </select>
+    
+    <select id="getElementoPorId" parameterType="java.lang.Long" resultMap="result">
+        select esp.idespacio, esp.espacio, esp.contacto, esp.telefonos, esp.idprovincia,
+        	   pro.idprovincia, pro.nombreProvincia, ema.idemail, ema.email
+        from espacios esp 
+        left join provincias pro on esp.idprovincia = pro.idprovincia
+        left join emails ema on esp.idespacio = ema.idespacio
+        where esp.idespacio=#{id}
+    </select>
+    
+    <select id="getListaElementos" resultMap="result">
+        select esp.idespacio, esp.espacio, esp.contacto, esp.telefonos, esp.idprovincia,
+        	   pro.idprovincia, pro.nombreProvincia, ema.idemail, ema.email
+        from espacios esp 
+        left join provincias pro on esp.idprovincia = pro.idprovincia
+        left join emails ema on esp.idespacio = ema.idespacio
+    </select>
+    
+    <update id="actualiza" parameterType="espacio">
+        update espacios
+        <set>
+            espacio=#{espacio},
+            contacto=#{contacto},
+            telefonos=#{telefonos},
+            emails=#{emails},
+            idprovincia=#{provincia.idprovincia}
+        </set>
+        where idespacio = #{idespacio}
+    </update>
+    
+    <select id="getElementosFiltrados" resultMap="result" parameterType="java.util.Map">
+        select esp.idespacio, esp.espacio, esp.contacto, esp.telefonos, esp.idprovincia,
+        	   pro.idprovincia, pro.nombreProvincia, ema.idemail, ema.email
+        from espacios esp 
+        left join provincias pro on esp.idprovincia = pro.idprovincia
+        left join emails ema on esp.idespacio = ema.idespacio
+        <where>
+            <if test="espacio != null and espacio != ''">espacio like '%${espacio}%' </if>
+            <if test="contacto != null and contacto != ''">AND contacto like '%${contacto}%' </if>
+            <if test="telefonos != null and telefonos != ''">AND telefonos like '%${telefonos}%' </if>
+            <if test="provincia != null and provincia != ''">AND esp.idprovincia=#{provincia}</if>
+        </where>
+    </select>
+</mapper>

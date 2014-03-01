@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="${struts.devMode}" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+	
+	<package name="inicio" namespace="/" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>	
+		
+		<action name="">
+		    <result type="redirect">inicio.action</result>
+		</action>
+	    <action name="inicio" class="inicioAction" method="inicio">
+	        <!-- <result name="success" type="tiles">inicio.tiles</result> -->
+	        <result type="redirect">entradaConsultas.action</result>
+	    </action>
+	</package>
+	
+	<package name="privado" namespace="/" extends="struts-default">
+	    <result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+	    
+		<interceptors>
+			<interceptor name="autenticacionInterceptor"
+				class="es.noletia.gestioncfe.interceptor.AutenticacionInterceptor"></interceptor>
+
+			<interceptor-stack name="autenticacionStack">
+				<interceptor-ref name="autenticacionInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="autenticacionStack" />
+
+		<global-results>
+			<result name="login" type="redirect">/login/entradaLogin.action</result>
+			<result name="error" type="tiles">error.tiles</result>
+		</global-results>
+		
+		<action name="*Consultas" class="consultasAction" method="{1}Consultas">
+		    <result name="success" type="tiles">consultas.tiles</result>
+		</action>
+	    
+		<action name="admin">
+	        <result type="tiles">admin.tiles</result>
+	    </action>
+	    
+		<action name="gestionCompanias" class="adminCompaniasAction" method="listado">
+		    <result type="tiles">adminCmp.tiles</result>
+		</action>
+		
+		<action name="*Provincia" class="adminProvinciasAction" method="{1}Provincia">
+		    <result name="success" type="tiles">adminPrv.tiles</result>
+		</action>
+		
+		<action name="*Genero" class="adminGenerosAction" method="{1}Genero">
+		    <result name="success" type="tiles">adminGen.tiles</result>
+		</action>
+		
+		<action name="gestionEspacios" class="adminEspaciosAction" method="listado">
+		    <result type="tiles">adminEsp.tiles</result>
+		</action>
+		
+		<action name="*Espacio" class="adminEspaciosAction" method="{1}Espacio">
+		    <result name="input" type="tiles">adminEsp.tiles</result>
+		    <result name="success" type="redirect">gestionEspacios.action</result>
+		</action>
+											
+		<action name="gestionCompanias" class="adminCompaniasAction" method="listado">
+		    <result name="success" type="tiles">adminCmp.tiles</result>
+		</action>
+		
+		<action name="*Compania" class="adminCompaniasAction" method="{1}Compania">
+		    <result name="input" type="tiles">adminCmp.tiles</result>
+		    <result name="success" type="redirect">gestionCompanias.action</result>
+		</action>
+											
+		<action name="gestionFunciones" class="adminFuncionesAction" method="listado">
+		    <result name="success" type="tiles">adminFun.tiles</result>
+		</action>
+		
+		<action name="*Funcion" class="adminFuncionesAction" method="{1}Funcion">
+		    <result name="input" type="tiles">adminFun.tiles</result>
+		    <result name="success" type="redirect">gestionFunciones.action</result>
+		</action>
+											
+										
+	</package>
+	
+</struts>

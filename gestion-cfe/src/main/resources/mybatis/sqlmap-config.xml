@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+<!--     <settings>
+        changes from the defaults
+       <setting name="lazyLoadingEnabled" value="false" />
+    </settings>
+ -->    
+ 	<typeAliases>
+        <typeAlias type="es.noletia.gestioncfe.modelo.Provincias" alias="provincia"/>
+        <typeAlias type="es.noletia.gestioncfe.modelo.Generos" alias="genero"/>
+        <typeAlias type="es.noletia.gestioncfe.modelo.Espacios" alias="espacio"/>
+        <typeAlias type="es.noletia.gestioncfe.modelo.Pas" alias="pas"/>
+        <typeAlias type="es.noletia.gestioncfe.modelo.Funciones" alias="funcion"/>
+        <typeAlias type="es.noletia.gestioncfe.modelo.Emails" alias="email"/>
+        <typeAlias type="es.noletia.gestioncfe.modelo.TipoAcuerdo" alias="tipoacuerdo"/>
+        <typeAlias type="es.noletia.gestioncfe.modelo.TipoPas" alias="tipopas"/>
+     </typeAliases>
+</configuration>

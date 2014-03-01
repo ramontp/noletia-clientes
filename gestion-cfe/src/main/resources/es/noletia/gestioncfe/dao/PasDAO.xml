@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.noletia.gestioncfe.dao.PasDAO">
+    
+    <resultMap id="result" type="pas">
+        <id property="idcompania" column="idcompania"/>
+        <result property="nombre" column="nombre"/>
+        <result property="contacto" column="contacto"/>
+        <result property="telefonos" column="telefonos"/>
+        <result property="emails" column="emails"/>
+        <result property="compromisoECE" column="compromisoECE"/>
+        <result property="nFuncionesAdeudadas" column="nFuncionesAdeudadas"/>
+        <result property="observaciones" column="observaciones"/>
+        <association property="genero" column="idgenero" javaType="genero">
+	        <id property="idgenero" column="idgenero"/>
+	        <result property="nombreGenero" column="nombreGenero"/>
+        </association>
+        <association property="provincia" column="idprovincia" javaType="provincia">
+	        <id property="idprovincia" column="idprovincia"/>
+	        <result property="nombreProvincia" column="nombreProvincia"/>
+        </association>
+    </resultMap>
+        
+    <insert id="alta" parameterType="pas">
+        <!-- TODO: Actualizar consulta -->
+        insert into companias(nombre,genero,contacto,telefonos,emails,provincia,compromisoECE,nFuncionesAdeudadas,observaciones) 
+        values (#{nombre},#{genero.idgenero},#{contacto},#{telefonos},#{emails},#{provincia.idprovincia},#{compromisoECE},#{nFuncionesAdeudadas},#{observaciones})
+    </insert>
+    
+    <delete id="borra" parameterType="pas">
+        delete from pas where idpas=#{idpas}
+    </delete>
+    
+    <delete id="borraPorId" parameterType="java.lang.Long">
+        delete from pas where idpas=#{id}
+    </delete>
+    
+    <select id="getElemento" parameterType="pas" resultMap="result">
+        select com.idcompania, com.nombre, com.contacto, com.telefonos, 
+        	   com.emails, com.provincia, com.genero, com.compromisoECE,
+        	   com.nFuncionesAdeudadas, com.observaciones,
+               pro.idprovincia, pro.nombreProvincia, gen.idgenero, gen.nombreGenero
+        from companias com 
+        left join provincias pro on com.provincia = pro.idprovincia
+        left join generos gen on com.genero = gen.idgenero
+        where idcompania=#{idcompania}
+    </select>
+    
+    <select id="getElementoPorId" parameterType="java.lang.Long" resultMap="result">
+        select com.idcompania, com.nombre, com.contacto, com.telefonos, 
+        	   com.emails, com.provincia, com.genero, com.compromisoECE,
+        	   com.nFuncionesAdeudadas, com.observaciones,
+               pro.idprovincia, pro.nombreProvincia, gen.idgenero, gen.nombreGenero
+        from companias com 
+        left join provincias pro on com.provincia = pro.idprovincia
+        left join generos gen on com.genero = gen.idgenero
+        where idcompania=#{id}
+    </select>
+    
+    <select id="getListaElementos" resultMap="result">
+        select com.idcompania, com.nombre, com.contacto, com.telefonos, 
+        	   com.emails, com.provincia, com.genero, com.compromisoECE,
+        	   com.nFuncionesAdeudadas, com.observaciones,
+               pro.idprovincia, pro.nombreProvincia, gen.idgenero, gen.nombreGenero
+        from companias com 
+        left join provincias pro on com.provincia = pro.idprovincia
+        left join generos gen on com.genero = gen.idgenero
+    </select>
+        
+    <update id="actualiza" parameterType="pas">
+        update companias
+        <set>
+            nombre=#{nombre},
+            genero=#{genero.idgenero},
+            contacto=#{contacto},
+            telefonos=#{telefonos},
+            emails=#{emails},
+            provincia=#{provincia.idprovincia},
+            compromisoECE=#{compromisoECE},
+            nFuncionesAdeudadas=#{nFuncionesAdeudadas},
+            observaciones=#{observaciones}
+        </set>
+        where idcompania = #{idcompania}
+    </update>
+    
+    <select id="getElementosFiltrados" resultMap="result" parameterType="java.util.Map">
+        select com.idcompania, com.nombre, com.contacto, com.telefonos, 
+        	   com.emails, com.provincia, com.genero, com.compromisoECE,
+        	   com.nFuncionesAdeudadas, com.observaciones,
+               pro.idprovincia, pro.nombreProvincia, gen.idgenero, gen.nombreGenero
+        from companias com 
+        left join provincias pro on com.provincia = pro.idprovincia
+        left join generos gen on com.genero = gen.idgenero
+        <where>
+            <if test="nombre != null and nombre != ''">nombre like '%${nombre}%' </if>
+            <if test="contacto != null and contacto != ''">AND contacto like '%${contacto}%' </if>
+            <if test="telefonos != null and telefonos != ''">AND telefonos like '%${telefonos}%' </if>
+            <if test="emails != null and emails != ''">AND emails like '%${emails}%' </if>
+            <if test="idprovincia != null and idprovincia != ''">AND com.provincia=#{idprovincia}</if>
+            <if test="idgenero != null and idgenero != ''">AND com.genero=#{idgenero}</if>
+            <if test="compromisoECE != null and compromisoECE != ''">AND compromisoECE=#{compromisoECE}</if>
+            <if test="nFuncionesAdeudadas != null and nFuncionesAdeudadas != ''">AND nFuncionesAdeudadas=#{nFuncionesAdeudadas}</if>
+            <if test="observaciones != null and observaciones != ''">AND observaciones like '%${observaciones}%' </if>
+        </where>
+    </select>
+</mapper>
