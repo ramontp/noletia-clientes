@@ -34,6 +34,8 @@ $(document).ready(function(){
 		$("fieldset legend a:nth-child(2)").addClass("leyendaSeleccionada");
 		$("#capa1").css("display","none");
 		$("#capa2").css("display","none");
+		$("#capa4").css("display","none");
+		
 		$("#capa3").css("display","block");
 	}
 	
@@ -97,6 +99,8 @@ function borraContacto(id,idc){
 
 function validaform(){
 	if (showBuscador == 'true'){
+		// recogemos las categorias seleccionadas
+		recogeCategoriasSeleccionadas('b_');
 		return true;
 	}
 	
@@ -162,14 +166,14 @@ function validaform(){
 	}
 	
 	// recogemos las categorias seleccionadas
-	recogeCategoriasSeleccionadas();
-	
+	recogeCategoriasSeleccionadas('');
+
 	return l;
 }
 
-function recogeCategoriasSeleccionadas(){
+function recogeCategoriasSeleccionadas(prefijo){
 	var categoriassel = "";
-	$("input[id|='cat']").each(function(i,chk){
+	$("input[id|='"+prefijo+"cat']").each(function(i,chk){
 		categoriassel += $(chk).attr("id") + ":" + $(chk).is(':checked')+"#";
 	});
 	$("#categoriasseleccionadas").val(categoriassel);
@@ -190,6 +194,7 @@ function muestraBuscador(){
 	// mostramos/ocultamos las capas adecuada
 	$("#capa1").slideUp();
 	$("#capa2").slideUp();
+	$("#capa4").slideUp();
 	$("#capa3").slideDown();
 	showBuscador='true';
 }
@@ -202,6 +207,7 @@ function muestraAlta(){
 	// mostramos/ocultamos las capas adecuada
 	$("#capa1").slideDown();
 	$("#capa2").slideDown();
+	$("#capa4").slideDown();
 	$("#capa3").slideUp();
 	showBuscador='';
 }
@@ -224,4 +230,21 @@ function quitaComaListados(){
 
 function seleccionaEmails(){
 	$("#seleccionaEmails").focus().select();
+}
+
+function copiaseguridad(){
+	$.post("ejecutaCopiaSeguridad.action", function(data){
+		if (data == 'ok'){
+			mensaje = 'La copia de seguridad se ha realizado correctamente';
+			muestraMensaje();
+		} else {
+			// ko
+			mensaje = 'Se ha producido un error en la aplicación. Consulte el log de la aplicación';
+			muestraMensaje();
+		}
+	});
+}
+
+function abrecarpeta(){
+	$.post("abreCarpetaCopiaSeguridad.action");
 }

@@ -3,12 +3,15 @@
  */
 package es.noletia.clientes.modelo;
 
+import java.io.Serializable;
+
 /**
  * @author ramon
  *
  */
-public class ClienteCategoria {
+public class ClienteCategoria implements Serializable{
 	
+	private static final long serialVersionUID = -3872403762805692145L;
 	private Long idcliente;
 	private Long idcategoria;
 	/**

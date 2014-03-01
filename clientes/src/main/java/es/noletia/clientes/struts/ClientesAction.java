@@ -195,7 +195,7 @@ public class ClientesAction extends ComunAction {
 			String[] arr2 = cat.split(":");
 			if ("true".equals(arr2[1])) {
 				Categoria categoria = categoriasService.getElementoPorId(Long
-						.valueOf(arr2[0].substring(arr2[0].length() - 1)));
+						.valueOf(arr2[0].substring(arr2[0].indexOf('-')+1)));
 				listacategorias.add(categoria);
 			}
 		}
@@ -360,6 +360,7 @@ public class ClientesAction extends ComunAction {
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("empresa", empresab);
 			parametros.put("contacto", contactob);
+			parametros.put("categorias", obtieneListaCategorias(categoriasseleccionadas));
 
 			listaClientes = clientesService.getElementosFiltrados(parametros);
 			session.put("listaClientes", listaClientes);

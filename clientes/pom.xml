@@ -194,6 +194,10 @@
 				<bd.usuario>clientesnoletia</bd.usuario>
 				<bd.password>Clientes$123</bd.password>
 				<bd.url>jdbc:mysql://localhost:3306/clientes?autoReconnect=true</bd.url>
+
+				<!-- Copia de Seguridad -->
+				<carpetaCopiaSeguridad>/home/ramon/copiasSeguridad/</carpetaCopiaSeguridad>
+				<comandoAperturaCarpeta>nautilus --browser</comandoAperturaCarpeta>
 			</properties>
 		</profile>
 		<profile>
@@ -206,6 +210,10 @@
 				<bd.usuario>clientesnoletia</bd.usuario>
 				<bd.password>Clientes$123</bd.password>
 				<bd.url>jdbc:mysql://localhost:3306/clientes?autoReconnect=true</bd.url>
+				
+				<!-- Copia de Seguridad -->
+				<carpetaCopiaSeguridad>c:\copiaBD</carpetaCopiaSeguridad>
+				<comandoAperturaCarpeta>explorer</comandoAperturaCarpeta>
 			</properties>
 		</profile>
 	</profiles>

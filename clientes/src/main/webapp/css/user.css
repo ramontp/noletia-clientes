@@ -207,3 +207,8 @@ td.cc2{
 	height: 150px;
 	border: 1px solid #ddd;
 }
+
+.enlace{
+	color: grey;
+	text-decoration: underline;
+}

@@ -133,6 +133,12 @@
 	        	</if>
 	        	) 
 	        </if>
+	        <if test="categorias.size() > 0">
+	        and cat.idcategoria in
+	        	<foreach collection="categorias" item="cat" open="(" separator="," close=")">
+	        	#{cat.idcategoria}
+	        	</foreach>
+	        </if>
         </where>
         order by empresa
     </select>
