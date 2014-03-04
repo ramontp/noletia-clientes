@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import es.noletia.clientes.modelo.Categoria;
 import es.noletia.clientes.modelo.Provincia;
@@ -70,11 +71,18 @@ public class ListadosAction extends ComunAction {
 	public String buscarListados() {
 		try {
 			Map<String, Object> parametros = new HashMap<String, Object>();
+			String cataux = "";
 			parametros.put("empresa", !"".equals(empresa) ? empresa : null);
 			parametros.put("provincia", provincia);
-			parametros.put("categorias",
-					recuperaCategoriasSeleccionadas(categoriasseleccionadas));
+			cataux = (String)recuperaCategoriasSeleccionadas(categoriasseleccionadas); 
+			parametros.put("categorias", cataux);
 			listaEmails = listadoService.buscaListadoEmails(parametros);
+			
+			// dejamos marcadas las categorias
+//			listaCategorias = categoriasService.getListaElementos();
+//			parametros.clear();
+//			parametros.put("ids", cataux);
+//			estableceCategoriasSeleccionadas(categoriasService.getElementosFiltrados(parametros));
 		} catch (Exception e) {
 			logger.error("Error en el método buscarListados", e);
 			setMensaje("Se ha producido un error en la aplicación. Consulte el log para más información");
@@ -90,15 +98,38 @@ public class ListadosAction extends ComunAction {
 	 * */
 	private Object recuperaCategoriasSeleccionadas(String catsel) {
 		String resultado = "";
-		String[] arr1 = catsel.split("#");
-		for (String cat : arr1) {
-			String[] arr2 = cat.split(":");
-			if ("true".equals(arr2[1])) {
-				resultado += "," + arr2[0].substring(arr2[0].indexOf('-')+1);
+		if (StringUtils.hasText(catsel)){
+			String[] arr1 = catsel.split("#");
+			for (String cat : arr1) {
+				String[] arr2 = cat.split(":");
+				if ("true".equals(arr2[1])) {
+					resultado += "," + arr2[0].substring(arr2[0].indexOf('-')+1);
+				}
 			}
 		}
+
 		return !"".equals(resultado) ? resultado.substring(1) : null;
 	}
+	
+	/**
+	 * Método privado que marca aquellas categorias que estuvieran seleccionadas
+	 * 
+	 * @param List
+	 *            <Categoria> listacategoriasseleccionadas
+	 * */
+	@SuppressWarnings("unused")
+	private void estableceCategoriasSeleccionadas(
+			List<Categoria> listacategoriasseleccionadas) {
+
+		for (Categoria cat : listacategoriasseleccionadas) {
+			if (listaCategorias.indexOf(cat) > -1) {
+				(listaCategorias.get(listaCategorias.indexOf(cat)))
+						.setSeleccionado(true);
+			}
+		}
+
+	}
+
 
 	/**
 	 * @return the provinciasService
