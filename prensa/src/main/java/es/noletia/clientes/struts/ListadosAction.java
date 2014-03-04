@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import es.noletia.clientes.modelo.Categoria;
 import es.noletia.clientes.modelo.Provincia;
@@ -90,11 +91,13 @@ public class ListadosAction extends ComunAction {
 	 * */
 	private Object recuperaCategoriasSeleccionadas(String catsel) {
 		String resultado = "";
-		String[] arr1 = catsel.split("#");
-		for (String cat : arr1) {
-			String[] arr2 = cat.split(":");
-			if ("true".equals(arr2[1])) {
-				resultado += "," + arr2[0].substring(arr2[0].indexOf('-')+1);
+		if (StringUtils.hasText(catsel)){
+			String[] arr1 = catsel.split("#");
+			for (String cat : arr1) {
+				String[] arr2 = cat.split(":");
+				if ("true".equals(arr2[1])) {
+					resultado += "," + arr2[0].substring(arr2[0].indexOf('-')+1);
+				}
 			}
 		}
 		return !"".equals(resultado) ? resultado.substring(1) : null;
