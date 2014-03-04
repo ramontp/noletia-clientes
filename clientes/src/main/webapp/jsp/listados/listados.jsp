@@ -6,7 +6,7 @@
 <div id="showmensaje"></div>
 <fieldset>
 	<legend><a href="#" class="leyenda">Filtrar emails por</a></legend>
-	<s:form theme="simple" action="buscarListados" id="form1" onsubmit="recogeCategoriasSeleccionadas();">
+	<s:form theme="simple" action="buscarListados" id="form1" onsubmit="recogeCategoriasSeleccionadas('');">
 			<div id="errores">
 				<s:fielderror />
 			</div>

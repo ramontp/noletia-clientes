@@ -40,8 +40,16 @@
         where idcategoria = #{idcategoria}
     </update>
     
-    <select id="getElementosFiltrados" resultType="provincia" parameterType="java.util.Map">
-        select * from categorias where nombrecategoria like '%${nombrecategoria}%'
+    <select id="getElementosFiltrados" resultType="categoria" parameterType="java.util.Map">
+        select * from categorias 
+        <where>
+        	<if test="nombrecategoria != null">
+        		AND nombrecategoria like '%${nombrecategoria}%'
+        	</if>
+        	<if test="ids != null">
+        		AND idcategoria in (#{ids})
+        	</if>
+        </where> 
     </select>
     
 </mapper>
